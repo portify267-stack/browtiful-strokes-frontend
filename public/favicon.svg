@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B06A" />
+      <stop offset="100%" stop-color="#947435" />
+    </linearGradient>
+  </defs>
+  <!-- Background Badge -->
+  <circle cx="32" cy="32" r="30" fill="#6B7753" />
+  <circle cx="32" cy="32" r="28" fill="#F8F5ED" stroke="#D4B06A" stroke-width="1.5" stroke-dasharray="2.5,2.5" />
+  
+  <!-- Outer Ring -->
+  <circle cx="32" cy="32" r="20" fill="none" stroke="#6B7753" stroke-width="1" />
+  <circle cx="32" cy="32" r="15" fill="none" stroke="url(#goldGrad)" stroke-width="1.2" stroke-dasharray="2,2" />
+  
+  <!-- Mandala Center -->
+  <circle cx="32" cy="32" r="4" fill="url(#goldGrad)" />
+  
+  <!-- Henna Petals -->
+  <path d="M 32 18 C 35 23, 37 23, 32 32 C 27 23, 29 23, 32 18 Z" fill="url(#goldGrad)" opacity="0.9" />
+  <path d="M 32 46 C 35 41, 37 41, 32 32 C 27 41, 29 41, 32 46 Z" fill="url(#goldGrad)" opacity="0.9" />
+  <path d="M 18 32 C 23 35, 23 37, 32 32 C 23 27, 23 29, 18 32 Z" fill="url(#goldGrad)" opacity="0.9" />
+  <path d="M 46 32 C 41 35, 41 37, 32 32 C 41 27, 41 29, 46 32 Z" fill="url(#goldGrad)" opacity="0.9" />
+  
+  <!-- Diagonal Dots -->
+  <circle cx="23" cy="23" r="1.5" fill="#6B7753" />
+  <circle cx="41" cy="23" r="1.5" fill="#6B7753" />
+  <circle cx="23" cy="41" r="1.5" fill="#6B7753" />
+  <circle cx="41" cy="41" r="1.5" fill="#6B7753" />
+</svg>

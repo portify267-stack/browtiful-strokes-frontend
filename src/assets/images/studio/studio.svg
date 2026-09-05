@@ -1,0 +1,60 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#F8F5ED" />
+      <stop offset="100%" stop-color="#E4DCCB" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B06A" />
+      <stop offset="100%" stop-color="#947435" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bgGrad)" />
+  
+  <!-- Outer border -->
+  <rect x="25" y="25" width="750" height="550" rx="12" fill="none" stroke="#D4B06A" stroke-width="1.5" />
+  <rect x="35" y="35" width="730" height="530" rx="8" fill="none" stroke="#6B7753" stroke-width="0.75" stroke-dasharray="4,4" />
+
+  <!-- Studio Frame Outline Sketch (Minimalist / Modern Lounge) -->
+  <g transform="translate(400, 260)" stroke="#6B7753" stroke-width="1.5" fill="none">
+    <!-- Arch / Mirror Background -->
+    <path d="M -120 120 L -120 -40 A 120 120 0 0 1 120 -40 L 120 120 Z" stroke="#E4DCCB" stroke-width="4" fill="white" opacity="0.8"/>
+    
+    <!-- Floor Line -->
+    <line x1="-220" y1="120" x2="220" y2="120" stroke="#6B7753" stroke-width="2" />
+    
+    <!-- Elegant Studio Armchair -->
+    <!-- Seat -->
+    <path d="M -50 70 L 50 70 C 60 70, 70 80, 70 95 L 70 110 L -70 110 L -70 95 C -70 80, -60 70, -50 70 Z" fill="#F8F5ED" />
+    <!-- Backrest -->
+    <path d="M -60 70 C -60 20, -40 5, 0 5 C 40 5, 60 20, 60 70" fill="none" stroke-width="2" />
+    <!-- Pillow -->
+    <path d="M -20 70 C -25 55, 25 55, 20 70 Z" fill="url(#goldGrad)" opacity="0.8" stroke="none" />
+    <!-- Legs -->
+    <line x1="-50" y1="110" x2="-60" y2="120" stroke-width="2.5" />
+    <line x1="50" y1="110" x2="60" y2="120" stroke-width="2.5" />
+
+    <!-- Planter with Palms (Side) -->
+    <rect x="130" y="50" width="30" height="70" rx="2" fill="#E4DCCB" />
+    <!-- Palm Leaves -->
+    <path d="M 145 50 Q 120 10, 100 20" stroke="#556B2F" stroke-width="2" />
+    <path d="M 145 50 Q 145 0, 130 -10" stroke="#556B2F" stroke-width="2" />
+    <path d="M 145 50 Q 170 10, 185 25" stroke="#556B2F" stroke-width="2" />
+    <path d="M 145 50 Q 155 -5, 175 -15" stroke="#556B2F" stroke-width="1.5" />
+
+    <!-- Hanging Boho Lamp -->
+    <line x1="0" y1="-140" x2="0" y2="-70" stroke-width="1" stroke-dasharray="2,2"/>
+    <path d="M -20 -70 L 20 -70 L 15 -45 L -15 -45 Z" fill="#D4B06A" stroke="none"/>
+    <circle cx="0" cy="-40" r="4" fill="yellow" stroke="none"/>
+  </g>
+
+  <!-- Title & Copy -->
+  <g transform="translate(400, 460)">
+    <text x="0" y="0" font-family="'Playfair Display', serif" font-size="28" font-weight="bold" fill="#6B7753" text-anchor="middle">Browtiful Strokes Studio</text>
+    <text x="0" y="30" font-family="'Inter', sans-serif" font-size="13" font-weight="600" fill="#D4B06A" letter-spacing="3" text-anchor="middle">EXPERIENCE EXCLUSIVE MEHENDI ARTISTRY</text>
+    <text x="0" y="55" font-family="'Inter', sans-serif" font-size="11" fill="#3B2D24" opacity="0.6" text-anchor="middle">Mumbai, India — Consultations &amp; Bridal Sessions Available</text>
+  </g>
+</svg>
+

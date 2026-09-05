@@ -1,0 +1,81 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap');
+
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #6B7753;
+  --color-forest-dark: #556143;
+  --color-forest-light: #556143;
+
+  --color-olive: #C8D0B5;
+  --color-olive-dark: #C8D0B5;
+  --color-olive-light: #C8D0B5;
+
+  --color-cream: #F8F5ED;
+  --color-cream-dark: #F8F5ED;
+
+  --color-beige: #E4DCCB;
+  --color-beige-dark: #E4DCCB;
+
+  --color-gold: #D4B06A;
+  --color-gold-dark: #D4B06A;
+  --color-gold-light: #D4B06A;
+
+  --color-hennabrown: #3B2D24;
+  --color-charcoal: #3B2D24;
+
+  --color-successgreen: #E7F2E9;
+  --color-successgreen-text: #2e7d32;
+
+  --color-errorred: #FBE8E6;
+  --color-errorred-text: #c62828;
+
+  --font-serif: "Playfair Display", "Cormorant Garamond", serif;
+  --font-sans: "Inter", "Manrope", sans-serif;
+}
+
+html,
+body {
+  overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  @apply bg-cream text-charcoal font-sans antialiased;
+  scroll-behavior: smooth;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  @apply font-serif text-forest;
+}
+
+/* Custom scrollbar matching design system */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F8F5ED;
+}
+::-webkit-scrollbar-thumb {
+  background: #E4DCCB;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #D4B06A;
+}
+
+/* Focus indicator style */
+*:focus-visible {
+  @apply outline-none ring-2 ring-gold ring-offset-2 ring-offset-cream;
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.scrollbar-none::-webkit-scrollbar {
+  display: none;
+}
+/* Hide scrollbar for IE, Edge and Firefox */
+.scrollbar-none {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+

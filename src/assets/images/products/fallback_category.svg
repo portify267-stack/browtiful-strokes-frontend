@@ -1,0 +1,45 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400" width="100%" height="100%">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#F8F5ED" />
+      <stop offset="100%" stop-color="#f3e6cd" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d2af66" />
+      <stop offset="100%" stop-color="#D4B06A" />
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="400" height="400" fill="url(#bgGrad)" />
+  <rect x="15" y="15" width="370" height="370" rx="8" fill="none" stroke="#E4DCCB" stroke-width="1.5" />
+
+  <!-- Central Visual (Mandala Category Symbol) -->
+  <g transform="translate(200, 175)" scale="1.1">
+    <!-- Star rays -->
+    <path d="M 0 -60 L 0 60 M -60 0 L 60 0 M -42 -42 L 42 42 M -42 42 L 42 -42" fill="none" stroke="#D4B06A" stroke-width="0.5" opacity="0.3" />
+    <!-- Rings -->
+    <circle cx="0" cy="0" r="45" fill="none" stroke="#6B7753" stroke-width="1" />
+    <circle cx="0" cy="0" r="35" fill="none" stroke="url(#goldGrad)" stroke-width="1.5" stroke-dasharray="3,3" />
+    <circle cx="0" cy="0" r="25" fill="none" stroke="#6B7753" stroke-width="0.5" />
+    
+    <!-- Outer Dots -->
+    <circle cx="0" cy="-45" r="3" fill="#D4B06A" />
+    <circle cx="0" cy="45" r="3" fill="#D4B06A" />
+    <circle cx="-45" cy="0" r="3" fill="#D4B06A" />
+    <circle cx="45" cy="0" r="3" fill="#D4B06A" />
+    
+    <!-- Mandala Petals -->
+    <path d="M 0 -25 C 8 -12, 8 12, 0 25 C -8 12, -8 -12, 0 -25 Z" fill="url(#goldGrad)" opacity="0.8"/>
+    <path d="M -25 0 C -12 -8, 12 -8, 25 0 C 12 8, -12 8, -25 0 Z" fill="url(#goldGrad)" opacity="0.8"/>
+    
+    <circle cx="0" cy="0" r="6" fill="#6B7753" />
+    <circle cx="0" cy="0" r="2" fill="#F8F5ED" />
+  </g>
+
+  <!-- Labels -->
+  <text x="200" y="280" font-family="'Playfair Display', serif" font-size="20" font-weight="bold" fill="#6B7753" text-anchor="middle">Browse Category</text>
+  <text x="200" y="305" font-family="'Inter', sans-serif" font-size="11" font-weight="600" fill="#D4B06A" letter-spacing="2" text-anchor="middle">MEHENDI SUPPLIES &amp; ART</text>
+  <text x="200" y="332" font-family="'Inter', sans-serif" font-size="9" fill="#3B2D24" opacity="0.5" text-anchor="middle">Image Placeholder</text>
+</svg>
+

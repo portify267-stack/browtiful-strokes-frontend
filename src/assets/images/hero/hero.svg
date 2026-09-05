@@ -1,0 +1,57 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="heroGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#6B7753" />
+      <stop offset="100%" stop-color="#0f291e" />
+    </linearGradient>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#d2af66" />
+      <stop offset="50%" stop-color="#D4B06A" />
+      <stop offset="100%" stop-color="#947435" />
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="#E4DCCB" stroke-width="0.5" opacity="0.07"/>
+    </pattern>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#heroGrad)" />
+  <rect width="800" height="600" fill="url(#grid)" />
+
+  <!-- Abstract Henna Pattern Overlay -->
+  <g opacity="0.15">
+    <circle cx="800" cy="300" r="250" fill="none" stroke="#D4B06A" stroke-width="2" />
+    <circle cx="800" cy="300" r="200" fill="none" stroke="#D4B06A" stroke-width="1" stroke-dasharray="10,10" />
+    <circle cx="800" cy="300" r="150" fill="none" stroke="#D4B06A" stroke-width="1.5" />
+    <circle cx="800" cy="300" r="100" fill="none" stroke="#D4B06A" stroke-width="1" stroke-dasharray="5,5" />
+  </g>
+
+  <!-- Flowing Leaf / Swirl Path in Gold -->
+  <path d="M -50 450 C 150 500, 300 250, 450 350 C 600 450, 650 200, 850 150" fill="none" stroke="url(#goldGrad)" stroke-width="3" opacity="0.4" />
+  <path d="M -50 470 C 130 520, 280 270, 430 370 C 580 470, 630 220, 850 170" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.2" />
+
+  <!-- Center Mandala Accent -->
+  <g transform="translate(480, 260) scale(2)">
+    <circle cx="0" cy="0" r="40" fill="none" stroke="url(#goldGrad)" stroke-width="1" opacity="0.5"/>
+    <circle cx="0" cy="0" r="32" fill="none" stroke="url(#goldGrad)" stroke-width="0.75" stroke-dasharray="2,2"/>
+    <path d="M0 -30 Q5 -15 0 0 Q-5 -15 0 -30 Z" fill="url(#goldGrad)" opacity="0.8"/>
+    <path d="M0 30 Q5 15 0 0 Q-5 15 0 30 Z" fill="url(#goldGrad)" opacity="0.8"/>
+    <path d="-30 0 Q-15 5 0 0 Q-15 -5 -30 0 Z" fill="url(#goldGrad)" opacity="0.8"/>
+    <path d="30 0 Q15 5 0 0 Q15 -5 30 0 Z" fill="url(#goldGrad)" opacity="0.8"/>
+    <circle cx="0" cy="0" r="8" fill="#6B7753" stroke="url(#goldGrad)" stroke-width="1.5" />
+    <circle cx="0" cy="0" r="3" fill="url(#goldGrad)" />
+  </g>
+
+  <!-- Typography Mockup -->
+  <g transform="translate(80, 200)">
+    <text x="0" y="0" font-family="'Playfair Display', serif" font-size="44" font-weight="bold" fill="#F8F5ED">Browtiful</text>
+    <text x="0" y="60" font-family="'Playfair Display', serif" font-size="44" font-weight="bold" fill="url(#goldGrad)">Strokes</text>
+    <text x="0" y="110" font-family="'Inter', sans-serif" font-size="16" font-weight="300" fill="#E4DCCB" letter-spacing="1.5">100% Organic Henna Products</text>
+    <text x="0" y="135" font-family="'Inter', sans-serif" font-size="16" font-weight="300" fill="#E4DCCB" letter-spacing="1.5">&amp; Premium Studio Artistry</text>
+  </g>
+
+  <!-- Bottom decorative border -->
+  <line x1="0" y1="590" x2="800" y2="590" stroke="url(#goldGrad)" stroke-width="3" />
+  <line x1="0" y1="594" x2="800" y2="594" stroke="#E4DCCB" stroke-width="1" opacity="0.3" />
+</svg>
+

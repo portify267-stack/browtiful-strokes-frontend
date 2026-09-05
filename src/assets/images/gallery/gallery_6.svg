@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 600" width="100%" height="100%">
+  <defs>
+    <linearGradient id="gold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#D4B06A" />
+      <stop offset="100%" stop-color="#947435" />
+    </linearGradient>
+  </defs>
+  <rect width="600" height="600" fill="#E4DCCB"/>
+  <rect x="20" y="20" width="560" height="560" fill="none" stroke="#F8F5ED" stroke-width="2"/>
+
+  <!-- Simple Arabic Swirl / Floral Trail -->
+  <g transform="translate(300, 260)" stroke="#6B7753" stroke-width="1.8" fill="none">
+    <!-- Paisley swirl -->
+    <path d="M -120 120 C -70 70, -70 10, -100 -30 C -120 -60, -90 -110, -50 -100 C -10 -90, 0 -30, -50 20 C -80 50, -40 80, 10 50 C 60 20, 90 -40, 120 -100" />
+    
+    <!-- Floral elements trailing -->
+    <circle cx="-50" cy="-100" r="8" fill="url(#gold)" stroke="#6B7753" stroke-width="1.2" />
+    <circle cx="10" cy="50" r="6" fill="url(#gold)" stroke="#6B7753" stroke-width="1.2" />
+    <circle cx="120" cy="-100" r="10" fill="url(#gold)" stroke="#6B7753" stroke-width="1.2" />
+    
+    <!-- Little buds -->
+    <path d="M -90 -20 Q -80 -40, -60 -30" />
+    <path d="M 50 10 Q 70 0, 75 -15" />
+  </g>
+
+  <!-- Title Text -->
+  <text x="300" y="490" font-family="'Playfair Display', serif" font-size="24" font-weight="bold" fill="#6B7753" text-anchor="middle">Celebration Guest Designs</text>
+  <text x="300" y="520" font-family="'Inter', sans-serif" font-size="12" font-weight="600" fill="url(#gold)" letter-spacing="3" text-anchor="middle">BROWTIFUL STROKES GALLERY</text>
+</svg>
+
