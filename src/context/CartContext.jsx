@@ -6,6 +6,8 @@ const cartReducer = (state, action) => {
   switch (action.type) {
     case 'ADD_TO_CART': {
       const { productId, name, variant, price, image, stock, weight = 0, qty = 1, minQuantity, minOrderQty } = action.payload;
+      const safePrice = typeof price === 'number' && !isNaN(price) ? price : (parseFloat(price) || 0);
+      const safeQty = typeof qty === 'number' && !isNaN(qty) ? qty : 1;
       const itemMinQty = minQuantity || minOrderQty || (name && name.toLowerCase().includes('pre-rolled') ? 20 : 1);
       const existingItemIndex = state.items.findIndex(
         (item) => item.productId === productId && item.variant === variant
@@ -15,15 +17,15 @@ const cartReducer = (state, action) => {
       if (existingItemIndex !== -1) {
         newItems = state.items.map((item, idx) => {
           if (idx === existingItemIndex) {
-            const addAmount = (qty === 1 && item.qty < itemMinQty) ? (itemMinQty - item.qty) : qty;
+            const addAmount = (safeQty === 1 && item.qty < itemMinQty) ? (itemMinQty - item.qty) : safeQty;
             const newQty = Math.min(item.qty + addAmount, stock);
-            return { ...item, qty: newQty };
+            return { ...item, price: safePrice || item.price, qty: newQty };
           }
           return item;
         });
       } else {
-        const initialQty = Math.max(qty, itemMinQty);
-        newItems = [...state.items, { productId, name, variant, price, image, stock, weight, qty: initialQty, minQuantity: itemMinQty, minOrderQty: itemMinQty }];
+        const initialQty = Math.max(safeQty, itemMinQty);
+        newItems = [...state.items, { productId, name, variant, price: safePrice, image, stock, weight, qty: initialQty, minQuantity: itemMinQty, minOrderQty: itemMinQty }];
       }
 
       return { ...state, items: newItems };
@@ -67,7 +69,16 @@ export const CartProvider = ({ children }) => {
   const [state, dispatch] = useReducer(cartReducer, { items: [] }, () => {
     try {
       const local = localStorage.getItem('browtiful_strokes_cart');
-      return local ? { items: JSON.parse(local) } : { items: [] };
+      if (!local) return { items: [] };
+      const parsed = JSON.parse(local);
+      const cleaned = Array.isArray(parsed)
+        ? parsed.map((item) => ({
+            ...item,
+            price: typeof item.price === 'number' && !isNaN(item.price) ? item.price : (parseFloat(item.price) || 0),
+            qty: typeof item.qty === 'number' && !isNaN(item.qty) ? item.qty : 1,
+          }))
+        : [];
+      return { items: cleaned };
     } catch {
       return { items: [] };
     }
@@ -79,13 +90,19 @@ export const CartProvider = ({ children }) => {
 
   const addToCart = (product, variantLabel, qty = 1) => {
     const minQty = product.minOrderQty || product.minQuantity || (product.name && product.name.toLowerCase().includes('pre-rolled') ? 20 : 1);
+    const resolvedPrice = typeof product.price === 'number' && !isNaN(product.price)
+      ? product.price
+      : (typeof product.variants?.[0]?.price === 'number' && !isNaN(product.variants[0].price)
+          ? product.variants[0].price
+          : (parseFloat(product.price) || 0));
+
     dispatch({
       type: 'ADD_TO_CART',
       payload: {
         productId: product._id,
         name: product.name.split(' - ')[0], // Base product name
         variant: variantLabel || 'Default',
-        price: product.price,
+        price: resolvedPrice,
         image: product.images?.[0] || '',
         stock: product.stock,
         weight: product.weight || 0,
@@ -129,7 +146,11 @@ export const CartProvider = ({ children }) => {
   };
 
   const getSubtotal = () => {
-    return state.items.reduce((total, item) => total + item.price * item.qty, 0);
+    return state.items.reduce((total, item) => {
+      const itemPrice = typeof item.price === 'number' && !isNaN(item.price) ? item.price : 0;
+      const itemQty = typeof item.qty === 'number' && !isNaN(item.qty) ? item.qty : 0;
+      return total + itemPrice * itemQty;
+    }, 0);
   };
 
   const getItemCount = () => {

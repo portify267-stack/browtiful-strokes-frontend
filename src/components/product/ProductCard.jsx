@@ -296,6 +296,7 @@ const ProductCard = ({ product = {}, isBestSellersSection = false }) => {
 
       <ComboDetailsModal
         product={product}
+        variant={activeVariantForCart}
         items={comboItems}
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}

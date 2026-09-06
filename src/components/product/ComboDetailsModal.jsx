@@ -1,24 +1,40 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { X, Minus, Plus, Check, ShoppingBag } from 'lucide-react';
 import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import { LOCAL_IMAGES } from '../../config/images';
 import { resolveProductImageUrl } from '../../utils/productUtils';
 
-const ComboDetailsModal = ({ product, isOpen, onClose, items = [] }) => {
+const ComboDetailsModal = ({ product, variant, isOpen, onClose, items = [] }) => {
   const [qty, setQty] = useState(1);
   const { addToCart, cart, openCart } = useCart();
   const { showToast } = useToast();
 
+  useEffect(() => {
+    if (isOpen) {
+      setQty(1);
+    }
+  }, [isOpen]);
+
   if (!isOpen || !product) return null;
 
-  // Retrieve stock status
-  const stock = typeof product.stock === 'number' ? product.stock : 10;
+  // Resolve existing combo variant, price, and stock from the exact same data source used by the combo card
+  const activeVariant = variant || (Array.isArray(product?.variants) && product.variants.length > 0 ? product.variants[0] : null);
+  const comboPrice = typeof activeVariant?.price === 'number'
+    ? activeVariant.price
+    : (typeof product?.price === 'number' ? product.price : 0);
+
+  const stock = typeof activeVariant?.stock === 'number'
+    ? activeVariant.stock
+    : (typeof product?.stock === 'number' ? product.stock : 10);
   const isOutOfStock = stock <= 0;
+
+  const targetProductId = activeVariant?._id || product?._id;
+  const targetVariantLabel = activeVariant?.label || 'Default';
 
   // Find quantity already in cart
   const cartItem = cart.find(
-    (item) => item.productId === product._id && item.variant === 'Default'
+    (item) => item.productId === targetProductId && item.variant === targetVariantLabel
   );
   const currentQtyInCart = cartItem ? cartItem.qty : 0;
 
@@ -45,7 +61,14 @@ const ComboDetailsModal = ({ product, isOpen, onClose, items = [] }) => {
       return;
     }
 
-    addToCart(product, 'Default', qty);
+    const productToAdd = activeVariant?.originalProduct || {
+      ...product,
+      _id: targetProductId,
+      price: comboPrice,
+      stock: stock,
+    };
+
+    addToCart(productToAdd, targetVariantLabel, qty);
     showToast(
       `${product.name || 'Combo'} added to cart.`,
       "success",
@@ -60,7 +83,7 @@ const ComboDetailsModal = ({ product, isOpen, onClose, items = [] }) => {
     onClose();
   };
 
-  const imageUrl = product.images?.[0] || '';
+  const imageUrl = activeVariant?.images?.[0] || product.images?.[0] || '';
   const resolvedImageUrl = imageUrl && typeof imageUrl === 'string' && imageUrl.trim() !== ''
     ? resolveProductImageUrl(imageUrl)
     : LOCAL_IMAGES.productFallback;
@@ -111,7 +134,7 @@ const ComboDetailsModal = ({ product, isOpen, onClose, items = [] }) => {
               {product.name}
             </h2>
             <div className="text-xl font-bold text-forest mb-4">
-              ₹{product.price}
+              ₹{comboPrice}
             </div>
 
             {/* "What's Inside?" items list */}

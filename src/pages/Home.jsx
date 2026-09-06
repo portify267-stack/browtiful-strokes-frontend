@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import HeroSection from '../sections/HeroSection';
-import TrustHighlights from '../sections/TrustHighlights';
 import CategoriesSection from '../sections/CategoriesSection';
 import BestSellersSection from '../sections/BestSellersSection';
 import ComboOffersSection from '../sections/ComboOffersSection';
@@ -21,9 +20,6 @@ const Home = () => {
     <div className="flex flex-col min-h-screen bg-cream">
       {/* 2. Hero */}
       <HeroSection />
-
-      {/* 3. Trust Highlights */}
-      <TrustHighlights />
 
       {/* 4. Categories */}
       <CategoriesSection onSelectCategory={handleSelectCategory} />
