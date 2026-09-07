@@ -9,6 +9,7 @@ import {
   ArrowRight,
   Eye,
   RefreshCw,
+  TrendingUp,
 } from 'lucide-react';
 import AdminStatCard from '../components/AdminStatCard';
 import { getDashboardStatsApi } from '../services/adminApi';
@@ -20,6 +21,7 @@ const AdminDashboard = () => {
     totalCategories: 0,
     totalOrders: 0,
     pendingPayments: 0,
+    thisMonthSales: 0,
     recentOrders: [],
   });
   const [isLoading, setIsLoading] = useState(true);
@@ -39,6 +41,7 @@ const AdminDashboard = () => {
           totalCategories: data.totalCategories || 0,
           totalOrders: data.totalOrders || 0,
           pendingPayments: data.pendingPayments || 0,
+          thisMonthSales: data.thisMonthSales || 0,
           recentOrders: Array.isArray(data.recentOrders) ? data.recentOrders : [],
         });
       }
@@ -133,8 +136,8 @@ const AdminDashboard = () => {
 
       {/* Metric Cards Grid */}
       {isLoading ? (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
-          {[1, 2, 3, 4].map((n) => (
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5">
+          {[1, 2, 3, 4, 5].map((n) => (
             <div
               key={n}
               className="h-28 bg-beige/30 rounded-xl animate-pulse border border-beige/40"
@@ -146,13 +149,13 @@ const AdminDashboard = () => {
           <p className="text-sm font-semibold text-errorred-text">{error}</p>
           <button
             onClick={fetchStats}
-            className="mt-3 px-4 py-2 text-xs font-bold bg-cream text-charcoal border border-beige rounded-lg"
+            className="mt-3 px-4 py-2 text-xs font-bold bg-cream text-charcoal border border-beige rounded-lg cursor-pointer"
           >
             Retry
           </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4 sm:gap-5">
           <AdminStatCard
             title="Total Products"
             value={stats.totalProducts}
@@ -181,6 +184,14 @@ const AdminDashboard = () => {
             color="amber"
             subtitle={`${stats.pendingPayments} order(s) awaiting payment`}
             onClick={() => navigate('/admin/orders?paymentStatus=PENDING')}
+          />
+          <AdminStatCard
+            title="Monthly Sales"
+            value={`₹${(stats.thisMonthSales || 0).toLocaleString('en-IN')}`}
+            icon={TrendingUp}
+            color="gold"
+            subtitle="This Month"
+            onClick={() => navigate('/admin/sales')}
           />
         </div>
       )}

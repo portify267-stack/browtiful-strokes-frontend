@@ -234,3 +234,90 @@ describe('Home Page Clean Removal of Specified Sections', () => {
     expect(screen.getByText(/Visit Browtiful Strokes Studio/i)).toBeDefined();
   });
 });
+
+describe('Product Click Modal (Popup Details on Same Page)', () => {
+  const regularProduct = mockProducts.find((p) => !p.isCombo);
+
+  it('opens ProductDetailsModal when clicking the product card image or title, showing weight, price, and Add to Cart', async () => {
+    const grouped = groupProducts([regularProduct])[0];
+
+    render(
+      <MemoryRouter>
+        <ToastProvider>
+          <CartProvider>
+            <ProductCard product={grouped} />
+            <CartInspector />
+          </CartProvider>
+        </ToastProvider>
+      </MemoryRouter>
+    );
+
+    // Click on the product title
+    const productTitle = screen.getByText(grouped.name);
+    await act(async () => {
+      fireEvent.click(productTitle);
+    });
+
+    // Verify modal is open with dialog role
+    const modalDialog = screen.getByRole('dialog', { name: grouped.name });
+    expect(modalDialog).toBeDefined();
+
+    // Verify product description and weight are displayed in the modal
+    expect(screen.getByText('Description')).toBeDefined();
+    if (grouped.weight) {
+      expect(screen.getByText(new RegExp(`Weight:`, 'i'))).toBeDefined();
+    }
+
+    // Verify close button closes the modal
+    const closeBtn = screen.getByRole('button', { name: /close details/i });
+    expect(closeBtn).toBeDefined();
+
+    // Click close button
+    await act(async () => {
+      fireEvent.click(closeBtn);
+    });
+
+    // Verify modal is closed
+    expect(screen.queryByRole('dialog')).toBeNull();
+  });
+
+  it('allows adding to cart from inside the ProductDetailsModal', async () => {
+    const grouped = groupProducts([regularProduct])[0];
+
+    render(
+      <MemoryRouter>
+        <ToastProvider>
+          <CartProvider>
+            <ProductCard product={grouped} />
+            <CartInspector />
+          </CartProvider>
+        </ToastProvider>
+      </MemoryRouter>
+    );
+
+    // Click product title
+    const productTitle = screen.getByText(grouped.name);
+    await act(async () => {
+      fireEvent.click(productTitle);
+    });
+
+    const modalDialog = screen.getByRole('dialog');
+    expect(modalDialog).toBeDefined();
+
+    // Find the modal Add to Cart button
+    const modalButtons = modalDialog.querySelectorAll('button');
+    const addToCartModalBtn = Array.from(modalButtons).find(b => b.textContent.includes('Add to Cart'));
+    expect(addToCartModalBtn).toBeDefined();
+
+    await act(async () => {
+      fireEvent.click(addToCartModalBtn);
+    });
+
+    // Verify modal is closed after adding to cart
+    expect(screen.queryByRole('dialog')).toBeNull();
+
+    // Verify cart subtotal has updated
+    const subtotalEl = screen.getByTestId('cart-subtotal');
+    expect(Number(subtotalEl.textContent)).toBeGreaterThan(0);
+  });
+});

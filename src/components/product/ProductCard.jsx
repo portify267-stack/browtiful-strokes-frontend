@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import VariantSelector from './VariantSelector';
 import ComboDetailsModal from './ComboDetailsModal';
+import ProductDetailsModal from './ProductDetailsModal';
 import { useCart } from '../../context/CartContext';
 import { useToast } from '../../context/ToastContext';
 import { ShoppingBag } from 'lucide-react';
@@ -184,7 +185,10 @@ const ProductCard = ({ product = {}, isBestSellersSection = false }) => {
       </div>
 
       {/* Image Area */}
-      <div className="h-36 sm:h-52 w-full overflow-hidden bg-beige/10 relative">
+      <div
+        onClick={() => setIsModalOpen(true)}
+        className="h-36 sm:h-52 w-full overflow-hidden bg-beige/10 relative cursor-pointer"
+      >
         <img
           src={resolvedImageUrl}
           alt={product.name || 'Product'}
@@ -208,24 +212,35 @@ const ProductCard = ({ product = {}, isBestSellersSection = false }) => {
       {/* Content */}
       <div className="p-2.5 sm:p-4 flex flex-col flex-grow">
         <div className="flex-grow">
-          <h3 className="font-serif text-sm sm:text-base md:text-lg font-bold text-forest hover:text-forest-light transition-colors line-clamp-2 mb-1">
+          <h3
+            onClick={() => setIsModalOpen(true)}
+            className="font-serif text-sm sm:text-base md:text-lg font-bold text-forest hover:text-forest-light transition-colors line-clamp-2 mb-1 cursor-pointer"
+          >
             {product.name || 'Natural Henna Product'}
           </h3>
-          <p className="text-charcoal/70 text-[10px] sm:text-xs line-clamp-2 mb-2 sm:mb-3 h-7 sm:h-8">
+          <p
+            onClick={() => setIsModalOpen(true)}
+            className="text-charcoal/70 text-[10px] sm:text-xs line-clamp-2 mb-2 sm:mb-3 h-7 sm:h-8 cursor-pointer"
+          >
             {product.description || 'Organic, premium quality mehendi product.'}
           </p>
 
-          <VariantSelector
-            variants={safeVariants}
-            selectedVariant={selectedVariant}
-            onSelect={handleSelectVariant}
-          />
+          <div onClick={(e) => e.stopPropagation()}>
+            <VariantSelector
+              variants={safeVariants}
+              selectedVariant={selectedVariant}
+              onSelect={handleSelectVariant}
+            />
+          </div>
 
           {product.isCombo && (
             <div className="mt-2">
               <button
                 type="button"
-                onClick={() => setIsModalOpen(true)}
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setIsModalOpen(true);
+                }}
                 className="w-full py-1.5 text-[11px] sm:text-xs font-semibold text-forest hover:text-cream border border-forest hover:bg-forest rounded-md transition-all duration-300 shadow-2xs hover:shadow-xs cursor-pointer flex items-center justify-center gap-1"
               >
                 View Details
@@ -235,7 +250,10 @@ const ProductCard = ({ product = {}, isBestSellersSection = false }) => {
         </div>
 
         {/* Action / Price */}
-        <div className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-beige/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-2">
+        <div
+          onClick={(e) => e.stopPropagation()}
+          className="mt-3 sm:mt-4 pt-2 sm:pt-3 border-t border-beige/40 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-2"
+        >
           <div className="flex flex-col">
             <span className="text-[9px] sm:text-[10px] text-charcoal/50 uppercase tracking-widest font-semibold">
               Price
@@ -294,13 +312,22 @@ const ProductCard = ({ product = {}, isBestSellersSection = false }) => {
         </div>
       </div>
 
-      <ComboDetailsModal
-        product={product}
-        variant={activeVariantForCart}
-        items={comboItems}
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      {product.isCombo ? (
+        <ComboDetailsModal
+          product={product}
+          variant={activeVariantForCart}
+          items={comboItems}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      ) : (
+        <ProductDetailsModal
+          product={product}
+          initialVariant={selectedVariant}
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+        />
+      )}
     </div>
   );
 };

@@ -5,6 +5,7 @@ import {
   Package,
   FolderTree,
   ShoppingBag,
+  TrendingUp,
   LogOut,
   Menu,
   X,
@@ -31,6 +32,7 @@ const AdminLayout = () => {
     { label: 'Products', path: '/admin/products', icon: Package },
     { label: 'Categories', path: '/admin/categories', icon: FolderTree },
     { label: 'Orders', path: '/admin/orders', icon: ShoppingBag },
+    { label: 'Sales', path: '/admin/sales', icon: TrendingUp },
   ];
 
   return (

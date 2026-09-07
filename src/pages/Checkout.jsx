@@ -12,6 +12,8 @@ import { RAZORPAY_KEY_ID, DEMO_MODE } from '../config/constants';
 import { LOCAL_IMAGES } from '../config/images';
 import { resolveProductImageUrl } from '../utils/productUtils';
 
+import { calculateShipping } from '../utils/shippingUtils';
+
 const Checkout = () => {
   const { cart, getSubtotal, clearCart } = useCart();
   const { showToast } = useToast();
@@ -43,51 +45,22 @@ const Checkout = () => {
   const watchCity = watch('city', '');
   const watchState = watch('state', '');
 
-  const cleanString = (str) => {
-    if (!str || typeof str !== 'string') return '';
-    return str.replace(/\s+/g, ' ').trim().toLowerCase();
-  };
-
-  const isChennaiCity = (city) => {
-    const cleanCity = cleanString(city);
-    return cleanCity === 'chennai' || cleanCity === 'madras' || cleanCity === 'chennai city';
-  };
-
-  const isTamilNaduState = (state) => {
-    const cleanState = cleanString(state);
-    return cleanState === 'tamil nadu' || cleanState === 'tamilnadu' || cleanState === 'tn';
-  };
-
   // Weight Calculation Rules
   const totalWeightInGrams = cart.reduce((total, item) => {
     return total + (item.weight || 0) * item.qty;
   }, 0);
 
-  const chargeableWeightKg = Math.max(1, Math.ceil(totalWeightInGrams / 1000));
+  const { shippingCharge, chargeableWeightKg, shippingRatePerKg, shippingZone } = calculateShipping(
+    totalWeightInGrams,
+    watchState,
+    watchCity
+  );
 
   const hasInvalidWeight = cart.some(item => !item.weight || item.weight <= 0);
-
-  let shippingCharge = 0;
   let shippingError = null;
 
-  if (watchState) {
-    if (isTamilNaduState(watchState)) {
-      if (watchCity) {
-        if (isChennaiCity(watchCity)) {
-          shippingCharge = chargeableWeightKg * 60;
-        } else {
-          shippingCharge = chargeableWeightKg * 80;
-        }
-      } else {
-        shippingCharge = chargeableWeightKg * 80;
-      }
-    } else {
-      shippingError = "Delivery is currently available only within Tamil Nadu. Please contact us on WhatsApp for assistance.";
-    }
-  }
-
   const subtotal = getSubtotal();
-  const grandTotal = shippingError ? subtotal : (subtotal + shippingCharge);
+  const grandTotal = subtotal + shippingCharge;
 
   const loadRazorpayScript = () => {
     return new Promise((resolve) => {
@@ -507,13 +480,22 @@ const Checkout = () => {
               </div>
               <div className="flex justify-between text-xs text-charcoal/80">
                 <span>Total Product Weight</span>
-                <span>{totalWeightInGrams >= 1000 ? `${(totalWeightInGrams / 1000).toFixed(2)} kg` : `${totalWeightInGrams} g`}</span>
+                <span>
+                  {totalWeightInGrams >= 1000 ? `${(totalWeightInGrams / 1000).toFixed(2)} kg` : `${totalWeightInGrams} g`}
+                  {chargeableWeightKg > 0 ? ` (Chargeable: ${chargeableWeightKg} kg)` : ''}
+                </span>
               </div>
+              {watchState && shippingZone && (
+                <div className="flex justify-between text-xs text-charcoal/80">
+                  <span>Shipping Zone</span>
+                  <span className="font-semibold text-charcoal">{shippingZone} (₹{shippingRatePerKg}/kg)</span>
+                </div>
+              )}
               <div className="flex justify-between text-xs text-charcoal/80">
                 <span>Shipping Charge</span>
                 {shippingError ? (
                   <span className="text-errorred-text font-semibold">N/A</span>
-                ) : watchState && watchCity ? (
+                ) : watchState ? (
                   <span>₹{shippingCharge}</span>
                 ) : (
                   <span className="text-charcoal/40 italic">Enter address to calculate</span>

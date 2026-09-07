@@ -133,8 +133,13 @@ const ComboDetailsModal = ({ product, variant, isOpen, onClose, items = [] }) =>
             <h2 className="font-serif text-2xl font-bold text-forest mb-2">
               {product.name}
             </h2>
-            <div className="text-xl font-bold text-forest mb-4">
-              ₹{comboPrice}
+            <div className="flex items-baseline gap-3 mb-4">
+              <span className="text-xl font-bold text-forest">₹{comboPrice}</span>
+              {product.weight && (
+                <span className="text-xs font-semibold text-charcoal/70 bg-beige/30 px-2.5 py-1 rounded-md border border-beige/60">
+                  Weight: {product.weight >= 1000 ? `${(product.weight / 1000).toFixed(product.weight % 1000 === 0 ? 0 : 2)} kg` : `${product.weight} g`}
+                </span>
+              )}
             </div>
 
             {/* "What's Inside?" items list */}

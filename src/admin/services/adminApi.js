@@ -361,6 +361,83 @@ export const getAdminOrderByIdApi = async (id) => {
   return response?.data?.data || response?.data;
 };
 
+export const getSalesAnalyticsApi = async () => {
+  if (DEMO_MODE) {
+    const existingOrders = JSON.parse(localStorage.getItem('browtiful_strokes_orders') || '[]');
+    const paidOrders = existingOrders.filter(
+      (o) => o.paymentStatus === 'PAID' && o.orderStatus !== 'CANCELLED'
+    );
+
+    let totalSales = 0;
+    let thisMonthSales = 0;
+    let lastMonthSales = 0;
+
+    const now = new Date();
+    const currentYear = now.getFullYear();
+    const currentMonth = now.getMonth();
+
+    const startOfThisMonth = new Date(currentYear, currentMonth, 1, 0, 0, 0, 0);
+    const startOfLastMonth = new Date(currentYear, currentMonth - 1, 1, 0, 0, 0, 0);
+    const endOfLastMonth = new Date(currentYear, currentMonth, 0, 23, 59, 59, 999);
+
+    const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const fullMonthNames = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
+    const monthlyBuckets = [];
+    for (let i = 5; i >= 0; i--) {
+      const d = new Date(currentYear, currentMonth - i, 1);
+      const y = d.getFullYear();
+      const m = d.getMonth();
+      monthlyBuckets.push({
+        key: `${y}-${String(m + 1).padStart(2, '0')}`,
+        label: monthNames[m],
+        fullLabel: `${fullMonthNames[m]} ${y}`,
+        year: y,
+        month: m,
+        amount: 0,
+        orderCount: 0,
+      });
+    }
+
+    for (const order of paidOrders) {
+      const amount = typeof order.totalAmount === 'number' ? order.totalAmount : 0;
+      totalSales += amount;
+      const orderTime = new Date(order.orderDate || order.createdAt || now);
+
+      if (orderTime >= startOfThisMonth) {
+        thisMonthSales += amount;
+      } else if (orderTime >= startOfLastMonth && orderTime <= endOfLastMonth) {
+        lastMonthSales += amount;
+      }
+
+      const oYear = orderTime.getFullYear();
+      const oMonth = orderTime.getMonth();
+      const bucket = monthlyBuckets.find((b) => b.year === oYear && b.month === oMonth);
+      if (bucket) {
+        bucket.amount += amount;
+        bucket.orderCount += 1;
+      }
+    }
+
+    return {
+      totalSales,
+      thisMonthSales,
+      lastMonthSales,
+      totalPaidOrders: paidOrders.length,
+      monthlySales: monthlyBuckets.map((b) => ({
+        key: b.key,
+        label: b.label,
+        fullLabel: b.fullLabel,
+        amount: b.amount,
+        orderCount: b.orderCount,
+      })),
+    };
+  }
+
+  const response = await adminClient.get('/orders/sales-analytics');
+  return response?.data?.data || response?.data;
+};
+
 export const getDashboardStatsApi = async () => {
   if (DEMO_MODE) {
     const existingOrders = JSON.parse(localStorage.getItem('browtiful_strokes_orders') || '[]');
@@ -374,6 +451,7 @@ export const getDashboardStatsApi = async () => {
     ).length;
     
     const recentOrders = existingOrders.slice(0, 5);
+    const salesData = await getSalesAnalyticsApi();
     
     return {
       totalProducts,
@@ -381,13 +459,15 @@ export const getDashboardStatsApi = async () => {
       totalOrders,
       pendingPayments,
       recentOrders,
+      thisMonthSales: salesData?.thisMonthSales || 0,
     };
   }
 
-  const [productsRes, categories, ordersRes] = await Promise.all([
+  const [productsRes, categories, ordersRes, salesRes] = await Promise.all([
     getAdminProductsApi({ limit: 100 }),
     getAdminCategoriesApi(),
     getAdminOrdersApi({ limit: 100 }),
+    getSalesAnalyticsApi().catch(() => ({ thisMonthSales: 0 })),
   ]);
 
   const products = productsRes.products || [];
@@ -402,6 +482,7 @@ export const getDashboardStatsApi = async () => {
   ).length;
 
   const recentOrders = orders.slice(0, 5);
+  const thisMonthSales = salesRes?.thisMonthSales || 0;
 
   return {
     totalProducts,
@@ -409,6 +490,7 @@ export const getDashboardStatsApi = async () => {
     totalOrders,
     pendingPayments,
     recentOrders,
+    thisMonthSales,
   };
 };
 
