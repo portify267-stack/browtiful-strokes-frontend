@@ -107,16 +107,16 @@ const HeroSection = () => {
 
         </div>
 
-        {/* Feature Strip Below Hero: Clean 2x2 on Mobile, 4 Columns on Tablet and Desktop */}
-        <div className="mt-4 sm:mt-6 md:mt-8 pt-3 sm:pt-4">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
+        {/* Feature Strip Below Hero: 2x2 on Mobile, 4 Columns in Single Row on Tablet and Desktop */}
+        <div className="mt-4 sm:mt-6 md:mt-8 pt-2 sm:pt-3">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
             {featureItems.map((item, index) => (
               <div
                 key={index}
-                className="flex items-center gap-2 sm:gap-3 p-2.5 sm:p-3.5 rounded-xl bg-white/80 border border-beige/60 shadow-2xs hover:shadow-xs transition-shadow"
+                className="flex flex-col items-center justify-center text-center p-3 sm:p-3.5 md:p-4 rounded-xl bg-white/80 border border-beige/60 shadow-2xs hover:shadow-xs transition-all duration-300"
               >
-                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-forest/5 flex items-center justify-center shrink-0 text-forest border border-forest/10">
-                  <item.icon className="w-4 h-4 sm:w-5 sm:h-5 shrink-0" strokeWidth={1.75} />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-forest/5 flex items-center justify-center shrink-0 text-forest border border-forest/10 mb-1.5 sm:mb-2">
+                  <item.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 shrink-0" strokeWidth={1.75} />
                 </div>
                 <div className="leading-tight">
                   <span className="text-[11px] sm:text-xs md:text-sm font-bold text-forest tracking-tight block">
