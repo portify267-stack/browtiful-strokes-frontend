@@ -22,59 +22,48 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative w-full bg-[#fdfbf7] overflow-x-hidden pt-3 pb-6 sm:py-6 md:py-8">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8">
-        {/* Unified Hero Card Container */}
-        <div className="relative w-full rounded-2xl md:rounded-3xl border border-gold/25 bg-[#faf7f0] shadow-sm overflow-hidden flex flex-col md:flex-row items-stretch justify-between">
+        {/* Unified Hero Card Container with Image Background */}
+        <div className="relative w-full rounded-2xl md:rounded-3xl border border-gold/25 shadow-sm overflow-hidden min-h-[380px] xs:min-h-[420px] sm:min-h-[460px] md:min-h-[500px] flex items-center">
           
-          {/* IMAGE LAYER: Top on mobile, right side on tablet & desktop */}
-          <div className="order-1 md:order-2 w-full md:w-[50%] lg:w-[54%] relative flex items-center justify-center bg-gradient-to-b from-[#f5ede1]/60 to-transparent md:bg-none">
-            {/* Image Frame */}
-            <div className="relative w-full h-[220px] xs:h-[260px] sm:h-[320px] md:h-full md:min-h-[460px] lg:min-h-[520px] flex items-center justify-center p-2 xs:p-3 sm:p-4 md:p-6 lg:p-8">
-              <img
-                src={LOCAL_IMAGES.hero}
-                alt="Browtiful Strokes Mehendi Art Team"
-                className="w-full h-full object-contain md:object-contain rounded-xl md:rounded-2xl transition-transform duration-300"
-                loading="eager"
-                decoding="async"
-                onError={(e) => {
-                  e.target.onerror = null;
-                  e.target.src = LOCAL_IMAGES.generalFallback;
-                }}
-              />
+          {/* Background Image: Fills the entire hero card */}
+          <img
+            src={LOCAL_IMAGES.hero}
+            alt="Browtiful Strokes Mehendi Art Team"
+            className="absolute inset-0 w-full h-full object-cover object-center"
+            loading="eager"
+            decoding="async"
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = LOCAL_IMAGES.generalFallback;
+            }}
+          />
 
-              {/* 100% Natural Henna Floating Badge (Anchored neatly in bottom-right corner of the image) */}
-              <div className="absolute bottom-4 right-4 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 w-[68px] h-[68px] xs:w-[74px] xs:h-[74px] sm:w-[84px] sm:h-[84px] md:w-[94px] md:h-[94px] lg:w-[100px] lg:h-[100px] rounded-full bg-forest border-[2.5px] md:border-[3px] border-[#faf7f0] shadow-xl flex flex-col justify-center items-center text-center p-1 z-20 overflow-hidden transform hover:scale-105 transition-transform duration-300 aspect-square shrink-0 select-none">
-                <div className="absolute inset-1 rounded-full border border-gold/40 pointer-events-none"></div>
-                <Leaf className="text-gold mb-0.5 sm:mb-1 w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" />
-                <span className="text-gold text-[8px] sm:text-[9px] md:text-[10px] font-bold leading-none tracking-widest mb-0.5">100%</span>
-                <span className="text-cream text-[7px] sm:text-[7.5px] md:text-[9px] font-semibold leading-tight tracking-wider mb-0.5">NATURAL</span>
-                <span className="text-cream text-[7px] sm:text-[7.5px] md:text-[9px] font-semibold leading-tight tracking-wider">HENNA</span>
-              </div>
-            </div>
-          </div>
+          {/* Dark Gradient Overlay: Ensures text and buttons remain clearly readable */}
+          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/35 pointer-events-none" />
 
-          {/* TEXT LAYER: Bottom on mobile, left side on tablet & desktop */}
-          <div className="order-2 md:order-1 w-full md:w-[50%] lg:w-[46%] flex flex-col justify-center px-4 py-5 xs:px-5 xs:py-6 sm:px-8 sm:py-8 md:px-8 lg:px-12 z-20 relative text-left">
+          {/* Content Layer: Text and Buttons positioned OVER the photo */}
+          <div className="relative z-10 w-full max-w-2xl px-5 py-8 xs:px-6 xs:py-10 sm:px-10 sm:py-12 md:px-12 md:py-14 lg:px-16 flex flex-col justify-center text-left">
             {/* Eyebrow / Label */}
-            <span className="text-[#9b8058] md:text-gold font-semibold uppercase tracking-[0.12em] md:tracking-widest text-[10px] xs:text-[11px] sm:text-xs mb-2 sm:mb-3 block leading-relaxed">
+            <span className="text-gold font-semibold uppercase tracking-[0.12em] md:tracking-widest text-[10px] xs:text-[11px] sm:text-xs mb-2 sm:mb-3 block leading-relaxed drop-shadow-sm">
               Bridal Mehendi | Events | Custom Designs
             </span>
 
             {/* Heading */}
-            <h1 className="font-serif font-bold text-forest leading-[1.08] sm:leading-[1.06] tracking-tight mb-2.5 sm:mb-3.5 md:mb-4 text-[clamp(28px,7.5vw,42px)] sm:text-4xl md:text-[42px] lg:text-[52px]">
+            <h1 className="font-serif font-bold text-white leading-[1.08] sm:leading-[1.06] tracking-tight mb-2.5 sm:mb-3.5 md:mb-4 text-[clamp(26px,6.8vw,42px)] sm:text-4xl md:text-[42px] lg:text-[52px] drop-shadow-md">
               Where Tradition <br className="hidden sm:inline" />
-              <span className="text-[#3b2f2f]">Meets Elegance</span>
+              <span className="text-gold">Meets Elegance</span>
             </h1>
 
             {/* Description */}
-            <p className="text-[#4a4a4a] text-[13px] xs:text-[14px] sm:text-base lg:text-lg max-w-md leading-relaxed mb-5 sm:mb-6 md:mb-8 font-normal">
+            <p className="text-cream/95 text-[13px] xs:text-[14px] sm:text-base lg:text-lg max-w-md leading-relaxed mb-5 sm:mb-6 md:mb-8 font-normal drop-shadow-sm">
               Elegant mehendi designs with natural henna for life’s most beautiful celebrations.
             </p>
 
-            {/* Dedicated CTA Container: Side-by-side on all screens without wrapping or squishing */}
+            {/* Dedicated CTA Container: Side-by-side on all screens without wrapping */}
             <div className="flex flex-row items-center gap-2.5 sm:gap-3.5 w-full max-w-md">
               <Link
                 to="/shop"
-                className="flex-1 sm:flex-none flex justify-center items-center gap-1.5 h-11 sm:h-12 px-3 sm:px-6 bg-forest hover:bg-[#1a3a2f] text-white font-medium sm:font-semibold rounded-xl transition-all duration-300 shadow-md text-xs sm:text-sm whitespace-nowrap"
+                className="flex-1 sm:flex-none flex justify-center items-center gap-1.5 h-11 sm:h-12 px-3 sm:px-6 bg-forest hover:bg-[#556143] text-white font-medium sm:font-semibold rounded-xl transition-all duration-300 shadow-md text-xs sm:text-sm whitespace-nowrap"
               >
                 Shop Now <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               </Link>
@@ -86,6 +75,15 @@ const HeroSection = () => {
                 Explore Gallery <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
               </a>
             </div>
+          </div>
+
+          {/* 100% Natural Henna Floating Badge (Anchored neatly inside hero card in bottom-right corner) */}
+          <div className="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 w-[64px] h-[64px] xs:w-[72px] xs:h-[72px] sm:w-[84px] sm:h-[84px] md:w-[94px] md:h-[94px] lg:w-[100px] lg:h-[100px] rounded-full bg-forest border-[2.5px] md:border-[3px] border-[#faf7f0] shadow-xl flex flex-col justify-center items-center text-center p-1 z-20 overflow-hidden transform hover:scale-105 transition-transform duration-300 aspect-square shrink-0 select-none">
+            <div className="absolute inset-1 rounded-full border border-gold/40 pointer-events-none"></div>
+            <Leaf className="text-gold mb-0.5 sm:mb-1 w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" />
+            <span className="text-gold text-[7.5px] xs:text-[8px] sm:text-[9px] md:text-[10px] font-bold leading-none tracking-widest mb-0.5">100%</span>
+            <span className="text-cream text-[6.5px] xs:text-[7px] sm:text-[7.5px] md:text-[9px] font-semibold leading-tight tracking-wider mb-0.5">NATURAL</span>
+            <span className="text-cream text-[6.5px] xs:text-[7px] sm:text-[7.5px] md:text-[9px] font-semibold leading-tight tracking-wider">HENNA</span>
           </div>
 
         </div>

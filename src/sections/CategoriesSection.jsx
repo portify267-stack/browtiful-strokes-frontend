@@ -51,7 +51,7 @@ const CategoriesSection = ({ onSelectCategory }) => {
         ) : !categories || categories.length === 0 ? (
           <EmptyState message="No categories available right now." icon={FolderOpen} />
         ) : (
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-items-center w-full">
+          <div className="flex flex-nowrap overflow-x-auto gap-4 sm:gap-6 md:gap-8 pb-4 pt-1 px-1 justify-start xl:justify-center items-start w-full scrollbar-none" style={{ WebkitOverflowScrolling: 'touch' }}>
             {categories.map((cat) => {
               const resolvedImageUrl = resolveCategoryImageUrl(cat.image, cat.name);
 
@@ -59,7 +59,7 @@ const CategoriesSection = ({ onSelectCategory }) => {
                 <button
                   key={cat._id}
                   onClick={() => handleCategoryClick(cat._id)}
-                  className="group flex flex-col items-center text-center w-full max-w-[150px] sm:max-w-[160px] focus:outline-none cursor-pointer"
+                  className="group flex flex-col items-center text-center shrink-0 w-[120px] xs:w-[130px] sm:w-[150px] md:w-[160px] focus:outline-none cursor-pointer"
                 >
                   {/* Equal Sized Circular Category Container */}
                   <div className="w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden border-2 border-beige/80 group-hover:border-forest shadow-md group-hover:shadow-xl transition-all duration-300 relative bg-[#fdfbf7] shrink-0 aspect-square">
