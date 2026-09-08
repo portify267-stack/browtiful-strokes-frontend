@@ -38,11 +38,13 @@ const HeroSection = () => {
             }}
           />
 
-          {/* Left-Side Dark Gradient Overlay matching reference image */}
-          <div className="absolute inset-0 bg-gradient-to-r from-[#101911] via-[#101911]/95 via-[38%] sm:via-[40%] md:via-[44%] via-[#101911]/60 via-[56%] sm:via-[58%] to-transparent pointer-events-none" />
-
-          {/* Subtle top and bottom dark edge fade */}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/20 pointer-events-none" />
+          {/* Subtle Left-Side Dark Gradient: Keeps original photo naturally bright while ensuring text readability */}
+          <div
+            className="absolute inset-0 pointer-events-none"
+            style={{
+              background: 'linear-gradient(90deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0.10) 55%, rgba(0, 0, 0, 0) 75%)',
+            }}
+          />
 
           {/* Elegant gold botanical line illustration in bottom-left corner */}
           <div className="absolute -bottom-2 -left-2 w-28 xs:w-36 sm:w-52 md:w-64 h-28 xs:h-36 sm:h-52 md:h-64 pointer-events-none opacity-30 sm:opacity-40 z-10 select-none overflow-hidden">
@@ -87,7 +89,7 @@ const HeroSection = () => {
               <a
                 href="#gallery"
                 onClick={(e) => handleScroll(e, '#gallery')}
-                className="w-[115px] xs:w-[130px] sm:w-[165px] md:w-[195px] h-7 xs:h-8 sm:h-10 md:h-11 flex justify-center items-center gap-1.5 bg-transparent border border-[#c2aa72]/80 hover:bg-white/10 text-[#faf5ec] font-medium rounded-lg sm:rounded-xl transition-all duration-300 text-[9.5px] xs:text-[10.5px] sm:text-xs md:text-sm whitespace-nowrap"
+                className="w-[115px] xs:w-[130px] sm:w-[165px] md:w-[195px] h-7 xs:h-8 sm:h-10 md:h-11 flex justify-center items-center gap-1.5 bg-black/20 hover:bg-black/35 border border-[#c2aa72]/80 hover:border-[#c2aa72] text-[#faf5ec] font-medium rounded-lg sm:rounded-xl transition-all duration-300 text-[9.5px] xs:text-[10.5px] sm:text-xs md:text-sm whitespace-nowrap"
               >
                 Explore Gallery <ArrowRight className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" />
               </a>
