@@ -22,8 +22,8 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative w-full bg-[#fdfbf7] overflow-x-hidden pt-2 pb-5 sm:py-6 md:py-8">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8">
-        {/* Unified Hero Card Container matching the reference image */}
-        <div className="relative w-full rounded-2xl md:rounded-3xl border border-gold/25 shadow-xl overflow-hidden bg-[#101911] aspect-[1.46/1] xs:aspect-[1.50/1] sm:aspect-[1.52/1] min-h-[250px] xs:min-h-[270px] sm:min-h-[350px] md:min-h-[440px] lg:min-h-[500px] flex items-center">
+        {/* Unified Hero Card Container with subtle, elegant rounded corners */}
+        <div className="relative w-full rounded-[14px] border border-gold/25 shadow-xl overflow-hidden bg-[#101911] aspect-[1.46/1] xs:aspect-[1.50/1] sm:aspect-[1.52/1] min-h-[250px] xs:min-h-[270px] sm:min-h-[350px] md:min-h-[440px] lg:min-h-[500px] flex items-center">
           
           {/* Background Image: Preserves the entire group photo composition */}
           <img
@@ -38,11 +38,11 @@ const HeroSection = () => {
             }}
           />
 
-          {/* Subtle Left-Side Dark Gradient: Keeps original photo naturally bright while ensuring text readability */}
+          {/* Subtle Left-Side Dark Gradient: Light shade for text readability while keeping photo naturally bright */}
           <div
             className="absolute inset-0 pointer-events-none"
             style={{
-              background: 'linear-gradient(90deg, rgba(0, 0, 0, 0.60) 0%, rgba(0, 0, 0, 0.35) 30%, rgba(0, 0, 0, 0.10) 55%, rgba(0, 0, 0, 0) 75%)',
+              background: 'linear-gradient(90deg, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.32) 26%, rgba(0, 0, 0, 0.08) 48%, rgba(0, 0, 0, 0) 68%)',
             }}
           />
 
@@ -67,10 +67,10 @@ const HeroSection = () => {
               CUSTOM DESIGNS
             </span>
 
-            {/* Heading */}
-            <h1 className="font-serif font-bold text-[#faf5ec] leading-[1.08] tracking-tight mb-1.5 xs:mb-2 sm:mb-3 md:mb-4 text-[clamp(17px,4.5vw,52px)] drop-shadow-md">
+            {/* Heading: Pure white for the entire text */}
+            <h1 className="font-serif font-bold text-white leading-[1.08] tracking-tight mb-1.5 xs:mb-2 sm:mb-3 md:mb-4 text-[clamp(17px,4.5vw,52px)] drop-shadow-md">
               Where Tradition<br />
-              <span className="text-[#8fa47b]">Meets Elegance</span>
+              <span className="text-white">Meets Elegance</span>
             </h1>
 
             {/* Description */}
