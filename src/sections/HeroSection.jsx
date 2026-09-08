@@ -22,8 +22,8 @@ const HeroSection = () => {
   return (
     <section id="home" className="relative w-full bg-[#fdfbf7] overflow-x-hidden pt-2 pb-5 sm:py-6 md:py-8">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8">
-        {/* Unified Hero Card Container with subtle, elegant rounded corners */}
-        <div className="relative w-full rounded-[14px] border border-gold/25 shadow-xl overflow-hidden bg-[#101911] aspect-[1.46/1] xs:aspect-[1.50/1] sm:aspect-[1.52/1] min-h-[250px] xs:min-h-[270px] sm:min-h-[350px] md:min-h-[440px] lg:min-h-[500px] flex items-center">
+        {/* Unified Hero Card Container with clean, sharp rectangular corners (border-radius: 0) */}
+        <div className="relative w-full rounded-none border border-gold/25 shadow-xl overflow-hidden bg-[#101911] aspect-[1.46/1] xs:aspect-[1.50/1] sm:aspect-[1.52/1] min-h-[250px] xs:min-h-[270px] sm:min-h-[350px] md:min-h-[440px] lg:min-h-[500px] flex items-center">
           
           {/* Background Image: Preserves the entire group photo composition */}
           <img
