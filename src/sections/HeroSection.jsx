@@ -13,10 +13,10 @@ const HeroSection = () => {
   };
 
   const featureItems = [
-    { text: '100% Natural Henna', icon: Leaf },
-    { text: 'Custom Designs', icon: Flower2 },
-    { text: 'Hygienic & Safe', icon: ShieldCheck },
-    { text: 'On-Time Service', icon: Clock },
+    { text: '100% NATURAL', icon: Leaf },
+    { text: 'CUSTOM DESIGNS', icon: Flower2 },
+    { text: 'HYGIENIC & SAFE', icon: ShieldCheck },
+    { text: 'ON-TIME SERVICE', icon: Clock },
   ];
 
   return (
@@ -107,22 +107,20 @@ const HeroSection = () => {
 
         </div>
 
-        {/* Feature Strip Below Hero: 2x2 on Mobile, 4 Columns in Single Row on Tablet and Desktop */}
-        <div className="mt-4 sm:mt-6 md:mt-8 pt-2 sm:pt-3">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5 sm:gap-4 md:gap-6">
+        {/* Continuous 4-Feature Strip in ONE horizontal row on all screen sizes */}
+        <div className="mt-3 sm:mt-5 md:mt-6 pt-1 sm:pt-2">
+          <div className="grid grid-cols-4 gap-1 xs:gap-2 sm:gap-4 md:gap-6 w-full text-center">
             {featureItems.map((item, index) => (
               <div
                 key={index}
-                className="flex flex-col items-center justify-center text-center p-3 sm:p-3.5 md:p-4 rounded-xl bg-white/80 border border-beige/60 shadow-2xs hover:shadow-xs transition-all duration-300"
+                className="flex flex-col items-center justify-center text-center p-1 sm:p-2"
               >
-                <div className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-forest/5 flex items-center justify-center shrink-0 text-forest border border-forest/10 mb-1.5 sm:mb-2">
-                  <item.icon className="w-4 h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 shrink-0" strokeWidth={1.75} />
+                <div className="w-7 h-7 xs:w-8 xs:h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 rounded-full bg-forest/10 flex items-center justify-center shrink-0 text-forest mb-1 sm:mb-1.5 transition-transform hover:scale-105 duration-200">
+                  <item.icon className="w-3.5 h-3.5 xs:w-4 xs:h-4 sm:w-4.5 sm:h-4.5 md:w-5 md:h-5 shrink-0" strokeWidth={1.75} />
                 </div>
-                <div className="leading-tight">
-                  <span className="text-[11px] sm:text-xs md:text-sm font-bold text-forest tracking-tight block">
-                    {item.text}
-                  </span>
-                </div>
+                <span className="text-[7.5px] xs:text-[8.5px] sm:text-[11px] md:text-xs font-bold text-forest tracking-tight uppercase leading-tight text-center max-w-[70px] xs:max-w-[80px] sm:max-w-none">
+                  {item.text}
+                </span>
               </div>
             ))}
           </div>
