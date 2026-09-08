@@ -49,9 +49,9 @@ export const ErrorState = ({ message = 'Something went wrong.', onRetry }) => {
 export const SectionHeading = ({ title, subtitle, className = "mb-4 md:mb-6 lg:mb-7" }) => {
   return (
     <div className={`text-center ${className}`}>
-      <h2 className="text-3xl md:text-4xl font-serif font-bold text-forest mb-1.5 md:mb-2">{title}</h2>
-      {subtitle && <p className="text-charcoal/70 text-sm md:text-base max-w-xl mx-auto">{subtitle}</p>}
-      <div className="w-16 h-0.5 bg-gold mx-auto mt-2.5 md:mt-3 animate-fade" />
+      <h2 className="text-2xl sm:text-3xl md:text-4xl font-serif font-bold text-forest mb-1.5 md:mb-2">{title}</h2>
+      {subtitle && <p className="text-charcoal/70 text-xs sm:text-sm md:text-base max-w-xl mx-auto px-2">{subtitle}</p>}
+      <div className="w-14 sm:w-16 h-0.5 bg-gold mx-auto mt-2 md:mt-3 animate-fade" />
     </div>
   );
 };

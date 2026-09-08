@@ -91,33 +91,33 @@ const Header = () => {
       <header
         className={`fixed top-0 left-0 w-full z-40 transition-all duration-300 ${
           isScrolled
-            ? 'bg-cream/95 shadow-md py-3.5 backdrop-blur-md border-b border-beige/40'
-            : 'bg-cream py-5.5 border-b border-beige/20'
+            ? 'bg-cream/95 shadow-md py-2.5 sm:py-3.5 backdrop-blur-md border-b border-beige/40'
+            : 'bg-cream py-3 sm:py-4 md:py-5 border-b border-beige/20'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 md:px-8 flex items-center justify-between">
+        <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8 flex items-center justify-between">
           {/* Logo */}
           <a
             href="/"
             onClick={handleLogoClick}
-            className="flex items-center gap-3 hover:opacity-85 transition-opacity"
+            className="flex items-center gap-2 sm:gap-3 hover:opacity-85 transition-opacity select-none"
           >
             <img
               src={CONTACT_INFO.brandLogo}
               alt="Browtiful Strokes Logo"
-              className="h-12 w-12 rounded-full object-cover border border-beige/40 shadow-sm shrink-0"
+              className="h-9 w-9 sm:h-10 sm:w-10 md:h-12 md:w-12 rounded-full object-cover border border-beige/40 shadow-sm shrink-0"
               onError={(e) => {
                 e.target.onerror = null;
                 e.target.src = LOCAL_IMAGES.generalFallback;
               }}
             />
-            <span className="font-serif font-bold text-lg md:text-xl tracking-wide flex items-center leading-none text-forest">
+            <span className="font-serif font-bold text-base sm:text-lg md:text-xl tracking-wide flex items-center leading-none text-forest whitespace-nowrap">
               Browtiful Strokes
             </span>
           </a>
 
           {/* Desktop Nav */}
-          <nav className="hidden lg:flex items-center gap-8">
+          <nav className="hidden lg:flex items-center gap-7 xl:gap-8">
             {navLinks.map((link) => {
               const isActive = link.path === '/shop' && location.pathname === '/shop';
               return (
@@ -143,15 +143,15 @@ const Header = () => {
           </nav>
 
           {/* Cart & Menu Actions */}
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5 sm:gap-3 md:gap-4">
             <button
               onClick={openCart}
-              className="relative p-2 rounded-full hover:bg-beige/40 text-forest transition-colors"
+              className="relative p-2 rounded-full hover:bg-beige/40 text-forest transition-colors focus:outline-none"
               aria-label="Open shopping cart"
             >
-              <ShoppingBag className="w-6 h-6" />
+              <ShoppingBag className="w-5 h-5 sm:w-6 sm:h-6" />
               {itemCount > 0 && (
-                <span className="absolute -top-0.5 -right-0.5 bg-gold text-cream text-[10px] font-bold w-5 h-5 rounded-full flex items-center justify-center animate-pulse">
+                <span className="absolute -top-0.5 -right-0.5 bg-gold text-cream text-[10px] font-bold w-4.5 h-4.5 sm:w-5 sm:h-5 rounded-full flex items-center justify-center animate-pulse">
                   {itemCount}
                 </span>
               )}
@@ -160,10 +160,10 @@ const Header = () => {
             {/* Mobile menu trigger */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="lg:hidden p-2 rounded-full hover:bg-beige/40 text-forest transition-colors"
+              className="lg:hidden p-2 rounded-full hover:bg-beige/40 text-forest transition-colors focus:outline-none"
               aria-label="Toggle mobile menu"
             >
-              {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              {isMobileMenuOpen ? <X className="w-5 h-5 sm:w-6 sm:h-6" /> : <Menu className="w-5 h-5 sm:w-6 sm:h-6" />}
             </button>
           </div>
         </div>
@@ -172,7 +172,7 @@ const Header = () => {
         <div
           className={`lg:hidden fixed left-0 w-full bg-cream shadow-inner border-t border-beige/30 transition-all duration-300 z-30 ${
             isMobileMenuOpen
-              ? 'top-[72px] opacity-100 visible h-screen'
+              ? 'top-[58px] sm:top-[68px] opacity-100 visible h-screen'
               : 'top-[-500px] opacity-0 invisible h-0'
           }`}
         >
@@ -197,7 +197,7 @@ const Header = () => {
       </header>
 
       {/* Spacer to prevent layout shift */}
-      <div className="h-[76px]" />
+      <div className="h-[58px] sm:h-[68px] md:h-[76px]" />
 
       {/* Cart Drawer */}
       <CartDrawer isOpen={isCartOpen} onClose={closeCart} />

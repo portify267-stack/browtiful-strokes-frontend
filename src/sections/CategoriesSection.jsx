@@ -51,7 +51,7 @@ const CategoriesSection = ({ onSelectCategory }) => {
         ) : !categories || categories.length === 0 ? (
           <EmptyState message="No categories available right now." icon={FolderOpen} />
         ) : (
-          <div className="flex md:grid md:grid-cols-6 gap-2 md:gap-6 lg:gap-8 overflow-x-auto md:overflow-x-visible snap-x snap-mandatory scrollbar-none w-full pb-2 md:pb-0">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4 md:gap-6 lg:gap-8 justify-items-center w-full">
             {categories.map((cat) => {
               const resolvedImageUrl = resolveCategoryImageUrl(cat.image, cat.name);
 
@@ -59,10 +59,10 @@ const CategoriesSection = ({ onSelectCategory }) => {
                 <button
                   key={cat._id}
                   onClick={() => handleCategoryClick(cat._id)}
-                  className="group flex flex-col items-center text-center flex-shrink-0 w-[calc((100%-16px)/3)] md:w-auto md:max-w-[160px] snap-start focus:outline-none"
+                  className="group flex flex-col items-center text-center w-full max-w-[150px] sm:max-w-[160px] focus:outline-none cursor-pointer"
                 >
                   {/* Equal Sized Circular Category Container */}
-                  <div className="w-20 h-20 xs:w-22 xs:h-22 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden border-2 border-beige/80 group-hover:border-forest shadow-md group-hover:shadow-xl transition-all duration-300 relative bg-[#fdfbf7] shrink-0 aspect-square">
+                  <div className="w-20 h-20 xs:w-24 xs:h-24 sm:w-28 sm:h-28 md:w-32 md:h-32 lg:w-36 lg:h-36 rounded-full overflow-hidden border-2 border-beige/80 group-hover:border-forest shadow-md group-hover:shadow-xl transition-all duration-300 relative bg-[#fdfbf7] shrink-0 aspect-square">
                     <img
                       src={resolvedImageUrl}
                       alt={cat.name}
@@ -76,14 +76,14 @@ const CategoriesSection = ({ onSelectCategory }) => {
                   </div>
 
                   {/* Category Title & Information Below Circle */}
-                  <div className="mt-2 md:mt-3 flex flex-col items-center">
+                  <div className="mt-2 sm:mt-2.5 md:mt-3 flex flex-col items-center">
                     <h3 className="font-serif font-bold text-xs sm:text-sm md:text-base text-forest group-hover:text-forest-light transition-colors line-clamp-1">
                       {cat.name}
                     </h3>
                     <p className="text-charcoal/70 text-[10px] sm:text-xs line-clamp-2 leading-relaxed mt-0.5 max-w-[140px] hidden sm:block">
                       {cat.description || 'Quality supplies for mehendi artists.'}
                     </p>
-                    <span className="text-[10px] sm:text-xs font-bold text-gold mt-1.5 md:mt-2 group-hover:text-gold-dark transition-colors inline-flex items-center gap-0.5">
+                    <span className="text-[10px] sm:text-xs font-bold text-gold mt-1 sm:mt-1.5 md:mt-2 group-hover:text-gold-dark transition-colors inline-flex items-center gap-0.5">
                       Browse <span className="hidden sm:inline">Products</span> &rarr;
                     </span>
                   </div>

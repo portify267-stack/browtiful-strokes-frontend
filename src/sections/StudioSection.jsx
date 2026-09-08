@@ -5,13 +5,13 @@ import { MapPin, Calendar, Gift } from 'lucide-react';
 
 const StudioSection = () => {
   return (
-    <section className="py-8 md:py-12 lg:py-14 bg-white border-b border-beige/40">
+    <section className="py-8 md:py-12 lg:py-14 bg-white border-b border-beige/40 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-10 items-center">
           {/* Studio Image */}
           <div className="relative">
             <div className="absolute inset-0 bg-gold/10 rounded-2xl transform -rotate-2 -translate-x-2 translate-y-2 z-0" />
-            <div className="relative h-[380px] md:h-[480px] rounded-2xl overflow-hidden shadow-lg border border-beige-dark/40 z-10 bg-cream/30 p-3">
+            <div className="relative h-[280px] xs:h-[320px] sm:h-[380px] md:h-[460px] lg:h-[480px] rounded-2xl overflow-hidden shadow-lg border border-beige-dark/40 z-10 bg-cream/30 p-3">
               <img
                 src={LOCAL_IMAGES.studio}
                 alt="Mehendi Studio Interior"
