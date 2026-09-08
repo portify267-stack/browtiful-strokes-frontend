@@ -20,16 +20,16 @@ const HeroSection = () => {
   ];
 
   return (
-    <section id="home" className="relative w-full bg-[#fdfbf7] overflow-x-hidden pt-3 pb-6 sm:py-6 md:py-8">
+    <section id="home" className="relative w-full bg-[#fdfbf7] overflow-x-hidden pt-2 pb-5 sm:py-6 md:py-8">
       <div className="max-w-7xl mx-auto px-3 sm:px-6 md:px-8">
-        {/* Unified Hero Card Container with Image Background */}
-        <div className="relative w-full rounded-2xl md:rounded-3xl border border-gold/25 shadow-sm overflow-hidden min-h-[380px] xs:min-h-[420px] sm:min-h-[460px] md:min-h-[500px] flex items-center">
+        {/* Unified Hero Card Container matching the reference image */}
+        <div className="relative w-full rounded-2xl md:rounded-3xl border border-gold/25 shadow-xl overflow-hidden bg-[#101911] aspect-[1.46/1] xs:aspect-[1.50/1] sm:aspect-[1.52/1] min-h-[250px] xs:min-h-[270px] sm:min-h-[350px] md:min-h-[440px] lg:min-h-[500px] flex items-center">
           
-          {/* Background Image: Fills the entire hero card */}
+          {/* Background Image: Preserves the entire group photo composition */}
           <img
             src={LOCAL_IMAGES.hero}
             alt="Browtiful Strokes Mehendi Art Team"
-            className="absolute inset-0 w-full h-full object-cover object-center"
+            className="absolute inset-0 w-full h-full object-cover object-right sm:object-[80%_center]"
             loading="eager"
             decoding="async"
             onError={(e) => {
@@ -38,52 +38,69 @@ const HeroSection = () => {
             }}
           />
 
-          {/* Dark Gradient Overlay: Ensures text and buttons remain clearly readable */}
-          <div className="absolute inset-0 bg-gradient-to-r from-black/85 via-black/65 to-black/35 pointer-events-none" />
+          {/* Left-Side Dark Gradient Overlay matching reference image */}
+          <div className="absolute inset-0 bg-gradient-to-r from-[#101911] via-[#101911]/95 via-[38%] sm:via-[40%] md:via-[44%] via-[#101911]/60 via-[56%] sm:via-[58%] to-transparent pointer-events-none" />
 
-          {/* Content Layer: Text and Buttons positioned OVER the photo */}
-          <div className="relative z-10 w-full max-w-2xl px-5 py-8 xs:px-6 xs:py-10 sm:px-10 sm:py-12 md:px-12 md:py-14 lg:px-16 flex flex-col justify-center text-left">
+          {/* Subtle top and bottom dark edge fade */}
+          <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-transparent to-black/20 pointer-events-none" />
+
+          {/* Elegant gold botanical line illustration in bottom-left corner */}
+          <div className="absolute -bottom-2 -left-2 w-28 xs:w-36 sm:w-52 md:w-64 h-28 xs:h-36 sm:h-52 md:h-64 pointer-events-none opacity-30 sm:opacity-40 z-10 select-none overflow-hidden">
+            <svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full h-full text-[#c8a86b]">
+              <path d="M-20 220 C 10 160, 40 120, 100 80 C 130 60, 170 50, 200 40 C 170 70, 150 110, 140 150 C 130 190, 140 210, 160 220" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+              <path d="M10 210 C 30 170, 60 140, 110 110 C 80 130, 50 160, 30 200" stroke="currentColor" strokeWidth="1" strokeLinecap="round" />
+              <path d="M60 140 C 80 120, 110 110, 130 115 C 115 125, 95 135, 75 150" stroke="currentColor" strokeWidth="1" />
+              <path d="M20 180 C 40 160, 70 150, 90 155 C 75 165, 55 175, 35 190" stroke="currentColor" strokeWidth="1" />
+              <path d="M100 80 C 120 40, 160 20, 190 10 C 170 30, 150 60, 140 90" stroke="currentColor" strokeWidth="1.2" strokeLinecap="round" />
+              <path d="M-10 170 C 10 140, 30 120, 60 100 C 75 90, 100 85, 120 80 C 100 95, 80 115, 70 135" stroke="currentColor" strokeWidth="1" />
+              <path d="M40 115 C 55 95, 80 85, 95 90 C 80 100, 65 110, 50 120" stroke="currentColor" strokeWidth="0.8" />
+            </svg>
+          </div>
+
+          {/* Content Layer: Text and Buttons positioned OVER the photo on the LEFT */}
+          <div className="relative z-10 w-full max-w-[64%] xs:max-w-[60%] sm:max-w-[54%] md:max-w-[48%] lg:max-w-[44%] px-3.5 py-4 xs:px-5 xs:py-5 sm:px-8 sm:py-8 md:px-12 md:py-10 lg:px-14 lg:py-12 flex flex-col justify-center text-left">
             {/* Eyebrow / Label */}
-            <span className="text-gold font-semibold uppercase tracking-[0.12em] md:tracking-widest text-[10px] xs:text-[11px] sm:text-xs mb-2 sm:mb-3 block leading-relaxed drop-shadow-sm">
-              Bridal Mehendi | Events | Custom Designs
+            <span className="text-[#c8a86b] font-sans font-semibold uppercase tracking-[0.14em] sm:tracking-[0.18em] text-[7.5px] xs:text-[8.5px] sm:text-[11px] md:text-xs lg:text-[13px] mb-1 xs:mb-1.5 sm:mb-2.5 md:mb-3 block leading-[1.3] drop-shadow-sm">
+              BRIDAL MEHENDI | EVENTS |<br />
+              CUSTOM DESIGNS
             </span>
 
             {/* Heading */}
-            <h1 className="font-serif font-bold text-white leading-[1.08] sm:leading-[1.06] tracking-tight mb-2.5 sm:mb-3.5 md:mb-4 text-[clamp(26px,6.8vw,42px)] sm:text-4xl md:text-[42px] lg:text-[52px] drop-shadow-md">
-              Where Tradition <br className="hidden sm:inline" />
-              <span className="text-gold">Meets Elegance</span>
+            <h1 className="font-serif font-bold text-[#faf5ec] leading-[1.08] tracking-tight mb-1.5 xs:mb-2 sm:mb-3 md:mb-4 text-[clamp(17px,4.5vw,52px)] drop-shadow-md">
+              Where Tradition<br />
+              <span className="text-[#8fa47b]">Meets Elegance</span>
             </h1>
 
             {/* Description */}
-            <p className="text-cream/95 text-[13px] xs:text-[14px] sm:text-base lg:text-lg max-w-md leading-relaxed mb-5 sm:mb-6 md:mb-8 font-normal drop-shadow-sm">
+            <p className="text-[#ded8cb] text-[8.5px] xs:text-[9.5px] sm:text-[12px] md:text-[14px] lg:text-[16px] max-w-[190px] xs:max-w-[220px] sm:max-w-[300px] md:max-w-[360px] leading-[1.35] sm:leading-relaxed mb-2.5 xs:mb-3 sm:mb-4.5 md:mb-6 font-normal drop-shadow-sm">
               Elegant mehendi designs with natural henna for life’s most beautiful celebrations.
             </p>
 
-            {/* Dedicated CTA Container: Side-by-side on all screens without wrapping */}
-            <div className="flex flex-row items-center gap-2.5 sm:gap-3.5 w-full max-w-md">
+            {/* Dedicated Vertical CTA Container matching reference */}
+            <div className="flex flex-col items-start gap-1.5 xs:gap-2 sm:gap-2.5 md:gap-3">
               <Link
                 to="/shop"
-                className="flex-1 sm:flex-none flex justify-center items-center gap-1.5 h-11 sm:h-12 px-3 sm:px-6 bg-forest hover:bg-[#556143] text-white font-medium sm:font-semibold rounded-xl transition-all duration-300 shadow-md text-xs sm:text-sm whitespace-nowrap"
+                className="w-[115px] xs:w-[130px] sm:w-[165px] md:w-[195px] h-7 xs:h-8 sm:h-10 md:h-11 flex justify-center items-center gap-1.5 bg-[#4f6745] hover:bg-[#415538] text-white font-medium rounded-lg sm:rounded-xl transition-all duration-300 shadow-md text-[9.5px] xs:text-[10.5px] sm:text-xs md:text-sm whitespace-nowrap"
               >
-                Shop Now <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                Shop Now <ArrowRight className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" />
               </Link>
               <a
                 href="#gallery"
                 onClick={(e) => handleScroll(e, '#gallery')}
-                className="flex-1 sm:flex-none flex justify-center items-center gap-1.5 h-11 sm:h-12 px-3 sm:px-6 bg-white border-2 border-forest hover:bg-forest/5 text-forest font-semibold rounded-xl transition-all duration-300 shadow-sm text-xs sm:text-sm whitespace-nowrap"
+                className="w-[115px] xs:w-[130px] sm:w-[165px] md:w-[195px] h-7 xs:h-8 sm:h-10 md:h-11 flex justify-center items-center gap-1.5 bg-transparent border border-[#c2aa72]/80 hover:bg-white/10 text-[#faf5ec] font-medium rounded-lg sm:rounded-xl transition-all duration-300 text-[9.5px] xs:text-[10.5px] sm:text-xs md:text-sm whitespace-nowrap"
               >
-                Explore Gallery <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 shrink-0" />
+                Explore Gallery <ArrowRight className="w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" />
               </a>
             </div>
           </div>
 
-          {/* 100% Natural Henna Floating Badge (Anchored neatly inside hero card in bottom-right corner) */}
-          <div className="absolute bottom-3 right-3 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 w-[64px] h-[64px] xs:w-[72px] xs:h-[72px] sm:w-[84px] sm:h-[84px] md:w-[94px] md:h-[94px] lg:w-[100px] lg:h-[100px] rounded-full bg-forest border-[2.5px] md:border-[3px] border-[#faf7f0] shadow-xl flex flex-col justify-center items-center text-center p-1 z-20 overflow-hidden transform hover:scale-105 transition-transform duration-300 aspect-square shrink-0 select-none">
-            <div className="absolute inset-1 rounded-full border border-gold/40 pointer-events-none"></div>
-            <Leaf className="text-gold mb-0.5 sm:mb-1 w-3.5 h-3.5 sm:w-4 sm:h-4 md:w-5 md:h-5 shrink-0" />
-            <span className="text-gold text-[7.5px] xs:text-[8px] sm:text-[9px] md:text-[10px] font-bold leading-none tracking-widest mb-0.5">100%</span>
-            <span className="text-cream text-[6.5px] xs:text-[7px] sm:text-[7.5px] md:text-[9px] font-semibold leading-tight tracking-wider mb-0.5">NATURAL</span>
-            <span className="text-cream text-[6.5px] xs:text-[7px] sm:text-[7.5px] md:text-[9px] font-semibold leading-tight tracking-wider">HENNA</span>
+          {/* 100% Natural Henna Floating Badge (Anchored in bottom-right corner inside photo) */}
+          <div className="absolute bottom-2 right-2 xs:bottom-3 xs:right-3 sm:bottom-6 sm:right-6 md:bottom-8 md:right-8 w-[48px] h-[48px] xs:w-[56px] xs:h-[56px] sm:w-[74px] sm:h-[74px] md:w-[88px] md:h-[88px] lg:w-[98px] lg:h-[98px] rounded-full bg-[#122415] border-[1.5px] sm:border-2 border-[#c8a86b] shadow-xl flex flex-col justify-center items-center text-center p-1 z-20 overflow-hidden transform hover:scale-105 transition-transform duration-300 aspect-square shrink-0 select-none">
+            <div className="absolute inset-0.5 sm:inset-1 rounded-full border border-[#c8a86b]/30 pointer-events-none" />
+            <Leaf className="text-[#8fa47b] mb-0.5 sm:mb-1 w-2.5 h-2.5 xs:w-3 xs:h-3 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 shrink-0" />
+            <span className="text-[#c8a86b] text-[6px] xs:text-[7px] sm:text-[8.5px] md:text-[9.5px] font-bold leading-none tracking-widest mb-0.5">100%</span>
+            <span className="text-[#faf5ec] text-[5px] xs:text-[6px] sm:text-[7px] md:text-[8px] font-semibold leading-tight tracking-wider mb-0.5">NATURAL</span>
+            <span className="text-[#faf5ec] text-[5px] xs:text-[6px] sm:text-[7px] md:text-[8px] font-semibold leading-tight tracking-wider">HENNA</span>
           </div>
 
         </div>
