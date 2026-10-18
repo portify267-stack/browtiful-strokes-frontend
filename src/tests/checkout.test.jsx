@@ -156,3 +156,69 @@ describe('Weight-Based Shipping Calculation (Chennai, Other TN, Other States)', 
     });
   });
 });
+
+import { buildRazorpayOptions } from '../utils/razorpayUtils';
+
+describe('Razorpay Checkout Configuration', () => {
+  const dummyOrder = {
+    _id: 'order_test_123',
+    customerName: 'Priya Sharma',
+    phone: '9876543210',
+    email: 'priya@example.com',
+  };
+
+  const dummyRazorpayOptions = {
+    key: 'rzp_test_testkey123',
+    amount: 150000,
+    currency: 'INR',
+    name: 'Browtiful Strokes',
+    description: 'Order #order_test_123',
+    order_id: 'order_rzp_456',
+  };
+
+  it('explicitly enables UPI and standard payment methods without restrictive display blocks', () => {
+    const handler = () => {};
+    const onDismiss = () => {};
+
+    const options = buildRazorpayOptions({
+      order: dummyOrder,
+      razorpayOptions: dummyRazorpayOptions,
+      handler,
+      onDismiss,
+    });
+
+    expect(options.key).toBe('rzp_test_testkey123');
+    expect(options.amount).toBe(150000);
+    expect(options.currency).toBe('INR');
+    expect(options.order_id).toBe('order_rzp_456');
+
+    // Verify UPI and payment methods
+    expect(options.method).toBeDefined();
+    expect(options.method.upi).toBe(true);
+    expect(options.method.card).toBe(true);
+    expect(options.method.netbanking).toBe(true);
+    expect(options.method.wallet).toBe(true);
+
+    // Verify no restrictive config.display blocks hiding payment instruments
+    expect(options.config).toBeUndefined();
+
+    // Verify prefill fields
+    expect(options.prefill.name).toBe('Priya Sharma');
+    expect(options.prefill.contact).toBe('9876543210');
+    expect(options.prefill.email).toBe('priya@example.com');
+  });
+
+  it('provides safe fallbacks for currency, name, and description when omitted', () => {
+    const options = buildRazorpayOptions({
+      order: { customerName: 'Deepa', phone: '9988776655' },
+      razorpayOptions: { amount: 50000, order_id: 'order_abc' },
+    });
+
+    expect(options.currency).toBe('INR');
+    expect(options.name).toBe('Browtiful Strokes');
+    expect(options.description).toBe('Service Booking / Payment');
+    expect(options.method.upi).toBe(true);
+    expect(options.prefill.email).toBe('');
+  });
+});
+

@@ -8,11 +8,12 @@ import { createOrder } from '../api/orderApi';
 import { verifyPayment } from '../api/paymentApi';
 import { useNavigate, Link } from 'react-router-dom';
 import { ShoppingBag, ArrowLeft, Loader2, AlertCircle, Truck } from 'lucide-react';
-import { RAZORPAY_KEY_ID, DEMO_MODE } from '../config/constants';
+import { DEMO_MODE } from '../config/constants';
 import { LOCAL_IMAGES } from '../config/images';
 import { resolveProductImageUrl } from '../utils/productUtils';
 
 import { calculateShipping } from '../utils/shippingUtils';
+import { buildRazorpayOptions } from '../utils/razorpayUtils';
 
 const Checkout = () => {
   const { cart, getSubtotal, clearCart } = useCart();
@@ -134,77 +135,55 @@ const Checkout = () => {
       const orderResult = await createOrder(orderPayload);
       const { order, razorpayOptions } = orderResult;
 
-      const options = {
-        key: razorpayOptions.key || RAZORPAY_KEY_ID,
-        amount: razorpayOptions.amount,
-        currency: razorpayOptions.currency,
-        name: razorpayOptions.name,
-        description: razorpayOptions.description,
-        order_id: razorpayOptions.order_id,
-        handler: async function (response) {
-          try {
-            setIsSubmitting(true);
-            
-            const verifyPayload = {
-              razorpay_order_id: response.razorpay_order_id,
-              razorpay_payment_id: response.razorpay_payment_id,
-              razorpay_signature: response.razorpay_signature,
-            };
+      const handlePaymentSuccess = async function (response) {
+        try {
+          setIsSubmitting(true);
+          
+          const verifyPayload = {
+            razorpay_order_id: response.razorpay_order_id,
+            razorpay_payment_id: response.razorpay_payment_id,
+            razorpay_signature: response.razorpay_signature,
+          };
 
-            const verificationResult = await verifyPayment(verifyPayload);
+          const verificationResult = await verifyPayment(verifyPayload);
 
-            if (verificationResult && verificationResult.paymentStatus === 'PAID') {
-              clearCart();
-              navigate('/order-success', {
-                state: {
-                  orderId: order._id,
-                  subtotal: order.subtotal,
-                  shippingCharge: order.shippingCharge,
-                  totalAmount: order.totalAmount,
-                  customerName: order.customerName,
-                  phone: order.phone,
-                },
-              });
-            } else {
-              throw new Error('Payment verification returned an invalid status.');
-            }
-          } catch (verifyErr) {
-            console.error(verifyErr);
-            const friendlyErr = 'Payment verification failed. Please contact support if your account was debited.';
-            setPaymentError(friendlyErr);
-            showToast(friendlyErr, 'error');
-            setIsSubmitting(false);
+          if (verificationResult && verificationResult.paymentStatus === 'PAID') {
+            clearCart();
+            navigate('/order-success', {
+              state: {
+                orderId: order._id,
+                subtotal: order.subtotal,
+                shippingCharge: order.shippingCharge,
+                totalAmount: order.totalAmount,
+                customerName: order.customerName,
+                phone: order.phone,
+              },
+            });
+          } else {
+            throw new Error('Payment verification returned an invalid status.');
           }
-        },
-        prefill: {
-          name: order.customerName,
-          contact: order.phone,
-        },
-        theme: {
-          color: '#6B7753',
-        },
-        modal: {
-          ondismiss: function () {
-            setIsSubmitting(false);
-            const userMsg = 'Payment window closed by user.';
-            setPaymentError(userMsg);
-            showToast(userMsg, 'info');
-          },
-        },
-        config: {
-          display: {
-            hide: [
-              { method: 'wallet' },
-              { method: 'paylater' },
-              { method: 'emi' },
-            ],
-            sequence: ['upi', 'card', 'netbanking'],
-            preferences: {
-              show_default_blocks: true,
-            },
-          },
-        },
+        } catch (verifyErr) {
+          console.error(verifyErr);
+          const friendlyErr = 'Payment verification failed. Please contact support if your account was debited.';
+          setPaymentError(friendlyErr);
+          showToast(friendlyErr, 'error');
+          setIsSubmitting(false);
+        }
       };
+
+      const handleDismiss = function () {
+        setIsSubmitting(false);
+        const userMsg = 'Payment window closed by user.';
+        setPaymentError(userMsg);
+        showToast(userMsg, 'info');
+      };
+
+      const options = buildRazorpayOptions({
+        order,
+        razorpayOptions,
+        handler: handlePaymentSuccess,
+        onDismiss: handleDismiss,
+      });
 
       const rzp1 = new window.Razorpay(options);
       rzp1.open();

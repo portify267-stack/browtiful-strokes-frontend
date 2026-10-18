@@ -29,6 +29,6 @@ const cleanApiUrl = RAW_API_URL.replace(/\/+$/, '');
 
 export const API_BASE_URL = cleanApiUrl.endsWith('/api/v1') ? cleanApiUrl : `${cleanApiUrl}/api/v1`;
 export const MEDIA_URL = DEMO_MODE ? '' : cleanApiUrl.replace(/\/api\/v1\/?$/, '');
-export const RAZORPAY_KEY_ID = import.meta.env.VITE_RAZORPAY_KEY_ID || 'rzp_test_TDgQ3wxDy69UbS';
+export const RAZORPAY_KEY_ID = (import.meta.env.VITE_RAZORPAY_KEY_ID || '').trim();
 export const DEFAULT_WHATSAPP_MSG = encodeURIComponent(CONTACT_INFO.whatsappMessage);
 
