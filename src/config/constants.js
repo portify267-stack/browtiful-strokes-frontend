@@ -24,7 +24,7 @@ export const CONTACT_INFO = {
 export const DEMO_MODE = false; // Set to false to switch back to dynamic API/MongoDB mode
 
 // Centralized API configuration: supports VITE_API_URL and VITE_API_BASE_URL with safe normalization
-const RAW_API_URL = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://browtiful-strokes-backend.onrender.com').trim();
+const RAW_API_URL = (import.meta.env.VITE_API_URL || import.meta.env.VITE_API_BASE_URL || 'https://browtiful-strokes-backend-1.onrender.com').trim();
 const cleanApiUrl = RAW_API_URL.replace(/\/+$/, '');
 
 export const API_BASE_URL = cleanApiUrl.endsWith('/api/v1') ? cleanApiUrl : `${cleanApiUrl}/api/v1`;
